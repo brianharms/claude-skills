@@ -1,0 +1,6 @@
+.DS_Store
+._*
+# working notes and the private word list never go in the repo
+SESSION_LOG*
+LOGS/
+tools/check.local
