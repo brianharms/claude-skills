@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The app Testing Checklist</title>
+<title>Testing Checklist</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -206,7 +206,7 @@
 </head>
 <body>
 <div class="container">
-  <h1>The app Testing Checklist</h1>
+  <h1>Testing Checklist</h1>
   <div class="subtitle">2026-03-20 — All changes from today <button class="reset-btn" onclick="resetAll()">Reset All</button></div>
 
   <div class="progress-wrap">
@@ -408,7 +408,7 @@ const DATA = [
           '<span class="action">Ask a question and let TTS play back through your speakers while mic is listening</span>',
           '<span class="action">Watch the conversation log carefully during and after TTS playback</span>',
           '<span class="expect">EXPECT: the app\'s own spoken words do NOT appear as a new "you said" transcription in the chat</span>',
-          '<span class="expect">EXPECT: No feedback loop where The app responds to itself</span>',
+          '<span class="expect">EXPECT: No feedback loop where the app responds to itself</span>',
         ]
       },
       {
@@ -419,7 +419,7 @@ const DATA = [
           '<span class="action">Change a few settings to non-default values you\'ll recognize, e.g.:</span>',
           '— Set VAD Aggressiveness to 1 (if it\'s not already)',
           '— Change Whisper Model to "small.en"',
-          '— Change a display color (Mic Color or The app Color)',
+          '— Change a display color (Mic Color or Voice Color)',
           '<span class="action">Close the settings sidebar</span>',
           '<span class="action">Click the circular restart button in the top bar</span>',
           '<span class="expect">EXPECT: Page briefly disconnects, then auto-reloads</span>',
@@ -506,14 +506,14 @@ const DATA = [
     ]
   },
   {
-    title: 'The app Projects',
+    title: 'Example: Projects app',
     port: 'localhost:7778',
     items: [
       {
         title: 'Server restart',
         desc: 'Pick up today\'s code changes',
         steps: [
-          '<span class="action">In terminal, stop the current The app Projects server (Ctrl+C)</span>',
+          '<span class="action">In terminal, stop the current Projects server (Ctrl+C)</span>',
           '<span class="action">Restart it (run the start command again — ./run.sh or node src/server.js)</span>',
           '<span class="action">Open http://localhost:7778 in your browser</span>',
           '<span class="expect">EXPECT: Page loads with header (connection dot, PM count, uptime, settings button), Director status bar, empty PM grid, and chat panel on the right</span>',
@@ -843,7 +843,7 @@ function updateCounts() {
 
 function generateOutput() {
   let lines = [];
-  lines.push('# The app Test Review — 2026-03-20');
+  lines.push('# Test Review');
   lines.push('');
 
   let pass = 0, fail = 0, attn = 0, skip = 0, unreviewed = 0;
@@ -899,7 +899,9 @@ function exportAsHtml() {
     });
   });
 
-  const stateJson = JSON.stringify(exportState, null, 2);
+  // Escaped so a comment containing </script> (or the JS line separators) can't break out of the tag below
+  const stateJson = JSON.stringify(exportState, null, 2)
+    .replace(/</g, '\\u003c').replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
   const injection = `<script>var EMBEDDED_STATE = ${stateJson};<\/script>`;
 
   // Get the original HTML source by re-fetching it, or reconstruct from current DOM
